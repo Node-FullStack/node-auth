@@ -1,13 +1,13 @@
 import { Server } from "./presentation/server";
+import { envs } from './config/envs';
 
  (() => {
     main();
-    console.log(56465);
     
- })
+ })();
 
  async function main() {
     //TODO: Generar el await de la BD
 
-    new Server().start();
+    new Server({port: envs.PORT}).start();
  }

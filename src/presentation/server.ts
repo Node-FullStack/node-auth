@@ -1,15 +1,24 @@
 import express from 'express'
 
+interface IOptions {
+    port?: number
+}
+
 export class Server {
 
-    //Inicializamos Xpress
+    //Inicializamos express
     public readonly app = express()
+    private readonly port: number;
     
-    constructor() {}
+    constructor( options: IOptions ) {
+        const { port = 3000 } = options;
+        this.port = port;
+    }
 
     async start(){
-        this.app.listen(3035 , () => {
-            console.log(`Server running on port ${ 3035 }`);
+        this.app.listen(this.port, () => {
+            console.log('Aplicacion ejecutandose en el pueto: ' + this.port);
+            
         });
     }
 }
