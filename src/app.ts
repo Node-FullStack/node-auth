@@ -1,5 +1,6 @@
 import { Server } from "./presentation/server";
 import { envs } from './config/envs';
+import { AppRoutes } from "./presentation/routes";
 
  (() => {
     main();
@@ -9,5 +10,5 @@ import { envs } from './config/envs';
  async function main() {
     //TODO: Generar el await de la BD
 
-    new Server({port: envs.PORT}).start();
+    new Server({port: envs.PORT, routes: AppRoutes.routes}).start();
  }
