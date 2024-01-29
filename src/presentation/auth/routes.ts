@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { AuthController } from "./controller";
 
 
 export class AuthRoutes {
@@ -7,14 +8,11 @@ export class AuthRoutes {
     //es mejor utilizar nuestras rutas como estaticas
     static get routes(): Router {
         const router = Router();
+        const controller = new AuthController();
 
         // Definir todas mis rutas
-        router.post('/login' , (req, res) => {
-            res.json('Login')
-        } )
-        router.post('/register' , (req, res) => {
-            res.json('register')
-        } )
+        router.post('/login' ,controller.loginUser)
+        router.post('/register' , controller.registerUser )
 
         return router;
     }
