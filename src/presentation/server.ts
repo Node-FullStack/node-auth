@@ -19,6 +19,11 @@ export class Server {
     }
 
     async start(){
+
+        // Middleware <-- funciones que se ejecutan antes de otras funciones
+        this.app.use(express.json()); // Body type JSON
+        this.app.use(express.urlencoded({ extended: true })); // Body type x-www-formurlendoced
+
         // Usar las rutas
         this.app.use( this.routes );
         // Escuchar el puerto
