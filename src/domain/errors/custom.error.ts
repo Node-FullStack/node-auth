@@ -18,7 +18,7 @@ export class CustomError extends Error {
         }
     
         static forbidden( message: string ){
-            return new CustomError( 400, message );
+            return new CustomError( 403, message );
         }
     
         static notFound( message: string ){
