@@ -40,7 +40,7 @@ export class AuthController {
     getUsers = (req: Request, res: Response) => {
         UserModel.find().then(user => res.json({
             user,
-            token: req.body.token,
+            token: req.body.payload,
         }) )
         .catch(error => res.status(500).json('Internal Server Error'));
     }
