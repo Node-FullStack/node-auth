@@ -3,6 +3,7 @@ import { CustomError, RegisterUser, RegisterUserDTO } from "../../domain"
 import { AuthRepository } from '../../domain/repositories/auth.repository';
 import { JwtAdapter } from "../../config";
 import { UserModel } from "../../data/mongodb";
+import { LoginUserDTO } from "../../domain/dtos/auth/login-user.dto";
 
 
 export class AuthController {
@@ -32,14 +33,24 @@ export class AuthController {
     }
 
     loginUser = (req: Request, res: Response) => {
-        res.json('Login Controller')
+
+        const [error, loginuserDto] = LoginUserDTO.login(req.body);
+
+       if(error) return res.status(400).json({ error });
+       
+       this.authRepository.login( loginuserDto! )
+       .then( async (user) => res.json({
+        user,
+        token: await JwtAdapter.generateToken({ email: user.email, id: user.id })
+       }) )
+       .catch(error => this.handleError( error, res ) )
     }
 
     getUsers = (req: Request, res: Response) => {
         UserModel.find().then(user => res.json({
             user: req.body.user,
         }) )
-        .catch(error => res.status(500).json('Internal Server Error'));
+        .catch(error => res.status(500).json('Internal Server Error!!!'));
     }
 
 }
